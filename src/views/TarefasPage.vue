@@ -31,7 +31,7 @@
             ></ion-input>
  
             <ion-button slot="end" @click="adicionarTarefa">
-              Adicionar
+              <ion-icon :icon="add"></ion-icon>
             </ion-button>
           </ion-item>
  
@@ -65,7 +65,7 @@
               slot="end"
               @click="removerTarefa(index)"
             >
-              Remover
+              <ion-icon :icon="trash"></ion-icon>
             </ion-button>
  
           </ion-item>
@@ -84,7 +84,9 @@
 </template>
  
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, watch } from 'vue'
+import { add, trash } from 'ionicons/icons'
+ 
 import {
   IonPage,
   IonHeader,
@@ -102,12 +104,24 @@ import {
   IonCardTitle,
   IonCardContent,
   IonButtons,
-  IonBackButton
+  IonBackButton,
+  IonIcon
 } from '@ionic/vue'
  
 const novaTarefa = ref('')
 const tarefas = ref<string[]>([])
 const erro = ref(false)
+ 
+onMounted(() => {
+  const dados = localStorage.getItem('tarefas')
+  if (dados) {
+    tarefas.value = JSON.parse(dados)
+  }
+})
+ 
+watch(tarefas, (novaLista) => {
+  localStorage.setItem('tarefas', JSON.stringify(novaLista))
+}, { deep: true })
  
 const adicionarTarefa = () => {
   if (novaTarefa.value.trim() === '') {
@@ -144,6 +158,16 @@ ion-card{
 .empty{
   text-align: center;
   margin-top: 40px;
+  opacity: 0.7;
+}
+ 
+/* 🎯 Ajuste visual dos ícones */
+ion-icon {
+  font-size: 18px;
+}
+ 
+/* leve transparência nos botões clean */
+ion-button[fill="clear"] {
   opacity: 0.7;
 }
  
