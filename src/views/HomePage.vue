@@ -10,7 +10,7 @@
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
+          <ion-title size="large">Home</ion-title>
         </ion-toolbar>
       </ion-header>
      
@@ -41,6 +41,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton } from 
 #container strong {
   font-size: 20px;
   line-height: 26px;
+  color: #8c8c8c;
 }
  
 #container p {
